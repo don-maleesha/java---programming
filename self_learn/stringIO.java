@@ -1,6 +1,8 @@
+
+
 import java.util.Scanner;
 
-public class stringIO {
+public class StringIO {
     
     public static void main(String[] args){
 
