@@ -10,5 +10,6 @@ public class IntIO {
         int input = number.nextInt();
 
         System.out.println("You entered: " + input);
+        
     }
 }
