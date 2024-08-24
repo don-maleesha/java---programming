@@ -10,7 +10,7 @@ public class CheckPalindrome {
         String word = input.nextLine();
         word = word.toLowerCase();
 
-        String rversed_word = new StringBuilder(word).reverse().toString();
+        String reversed_word = new StringBuilder(word).reverse().toString();
 
         if (word.equals(reversed_word)) {
 
@@ -23,5 +23,5 @@ public class CheckPalindrome {
         }
 
     }
-    
+
 }

@@ -65,7 +65,7 @@ public class SwitchCaseGradeEvaluate {
                 break;
 
             default:
-                System.out.println("The grade is: F");
+                System.out.println("The grade is: 44F");
                 break;
         
         }
