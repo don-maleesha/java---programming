@@ -22,15 +22,21 @@ public class Person {
    }
 
    public void setAddress(String address) {
-
         this.address = address;
-
     }
 
     public void setPhoneNumber(String phoneNumber) {
-
         this.phoneNumber = phoneNumber;
-
     }
 
+    public void setName(String name){
+        this.name=name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+
 }
+

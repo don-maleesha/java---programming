@@ -18,6 +18,5 @@ public class Main {
         System.out.println(sam.getAddress()); //getters: get the value of the private variable
 
 
-
     }
 }

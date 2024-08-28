@@ -13,6 +13,6 @@ public class StudentMain {
         stu1.learning();
         stu2.speaking();
 
-    }
+    
     
 }
