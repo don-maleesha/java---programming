@@ -1,5 +1,6 @@
 public class FindGeneSimpleAndTest {
 
+
     public String findGeneSimple(String dna) {
 
         String result = " ";
@@ -24,6 +25,16 @@ public class FindGeneSimpleAndTest {
         String dna = "AATGCGTAATATGGT"; // This DNA does not have a "TAA" stop codon after "ATG"
         System.out.println("DNA strand is " + dna);
         String gene = findGeneSimple(dna);
+        System.out.println("Gene is " + gene);
+
+        dna = "TTATAA";
+        System.out.println("DNA strand is " + dna);
+        gene = findGeneSimple(dna);
+        System.out.println("Gene is " + gene);
+
+        dna = "CGATGGTTTG";
+        System.out.println("DNA strand is " + dna);
+        gene = findGeneSimple(dna);
         System.out.println("Gene is " + gene);
     }
 

@@ -1,15 +1,12 @@
 
 public class FileResource {
 
+    /**
+     * Constructor for FileResource.
+     * @param hello_unicodetxt The hello_unicodetxt parameter.
+     */
     public FileResource(String hello_unicodetxt) {
-    }
-
-    FileResource(String hello_unicodetxt) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    FileResource(String hello_unicodetxt) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Add a nested comment explaining why this method is empty.
     }
 
     public String[] lines() {

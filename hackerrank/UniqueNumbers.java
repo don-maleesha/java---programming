@@ -34,14 +34,9 @@ public class UniqueNumbers {
 
                 } 
                 
-            while (valid) {
+            } while (valid);
 
-                numbers[numValues] = num;
-                numValues++;
-                
-            }
-            }
+        }
+
         }
     }
-    
-}

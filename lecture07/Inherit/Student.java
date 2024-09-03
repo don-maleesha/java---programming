@@ -2,9 +2,6 @@ public class Student extends Person {
 
     private String studentId; // Declare the studentId variable
 
-    public static void main(String[] args) {
-        // You don't need to redeclare studentId here, it's already declared as a class variable.
-    }   
 
     // Constructor for the Student class
     public Student(String nameIn, String addressIn, String phoneNumberIn, String studentIdIn) {
