@@ -3,32 +3,22 @@ import java.util.Scanner;
 
 public class Hostel {
 
-    public static Tenant addTenant(int tenantID){
+    public static Tenant addTenant(int tenantID,  ArrayList<Room> roomList){
         Scanner input = new Scanner(System.in);
 
         System.out.print("Enter tenant name: ");
         String name = input.nextLine();
 
+        
         System.out.print("Enter room number: ");
         int roomNumber = input.nextInt();
+
         
         Tenant tenant = new Tenant(tenantID, name, roomNumber);
         return tenant;
     }
 
-    public static Room addRoom(int roomNumber){
-
-        Scanner input = new Scanner(System.in);
-
-        System.out.print("Enter tenent ID: ");
-        int tenantID = input.nextInt();
-
-        Room room = new Room(roomNumber, tenantID);
-        return room;
-
-    }
-
-    public static Payment addPayment(){
+    public static Payment addPayment() {
         Scanner input = new Scanner(System.in);
 
         System.out.print("Enter month: ");
@@ -40,19 +30,24 @@ public class Hostel {
         Payment payment = new Payment(month, amount);
         return payment;
     }
-    
-    public static void main(String[] args) {
-        
-        Scanner input = new Scanner(System.in);
-        ArrayList<Room> roomList = new ArrayList<Room>();
-        ArrayList<Tenant> tenantList = new ArrayList<Tenant>();
 
+    public static void main(String[] args) {
+
+        int i = 1;
+        Scanner input = new Scanner(System.in);
+        ArrayList<Room> roomList = new ArrayList<>();
+        ArrayList<Tenant> tenantList = new ArrayList<>();
+
+        for(int j=0 ; j<50 ; j++){
+            Room r = new Room( i);
+            roomList.add(r);
+            i++;
+        }
 
         int choice = 0;
         int tenantID = 1;
-        
 
-        while(choice != 10){
+        while (choice != 10) {
             System.out.println("Hostel Management System");
 
             System.out.println("*************************");
@@ -71,129 +66,156 @@ public class Hostel {
             System.out.println("*************************");
             System.out.print("Enter your choice: ");
             choice = input.nextInt();
+            input.nextLine();
 
-            switch(choice){
+            switch (choice) {
                 case 1:
                     System.out.println("Enter tenant details");
-                    Tenant tenant = addTenant(tenantID);
+                    Tenant tenant = addTenant(tenantID, roomList);
                     tenantList.add(tenant);
                     tenantID++;
-                    break;
+                break;   
                 case 2:
                     System.out.println("Enter tenant ID to remove: ");
                     int tenantIDToRemove = input.nextInt();
-                    for(int i = 0; i < tenantList.size(); i++){
-                        if(tenantList.get(i).getTenantID() == tenantIDToRemove){
-                            tenantList.remove(i);
+                    input.nextLine();
+                    boolean tenantRemoved = false;
+                    for (int x = 0; x < tenantList.size(); x++) {
+                        if (tenantList.get(x).getTenantID() == tenantIDToRemove) {
+                            int roomNumberToVacate = tenantList.get(x).getRoomNumber();
+                            tenantList.remove(x);
+                            for (int j = 0; j < roomList.size(); j++) {
+                                if (roomList.get(j).getRoomNumber() == roomNumberToVacate) {
+                                    roomList.remove(j);
+                                    break;
+                                }
+                            }
                             System.out.println("Tenant removed successfully");
+                            tenantRemoved = true;
                             break;
                         }
                     }
+                    if (!tenantRemoved) {
+                        System.out.println("Tenant not found");
+                    }
                     break;
                 case 3:
-                    for(int i = 0; i < tenantList.size(); i++){
-                        System.out.println("Tenant ID: " + tenantList.get(i).getTenantID());
-                        System.out.println("Tenant Name: " + tenantList.get(i).getName());
-                        System.out.println("Room Number: " + tenantList.get(i).getRoomNumber());
+                    for(int j = 0; j < tenantList.size(); j++){
+                        System.out.println("Tenant ID: " + tenantList.get(j).getTenantID());
+                        System.out.println("Tenant Name: " + tenantList.get(j).getName());
+                       // System.out.println("Room Number: " + tenantList.get(j).getRoomNumber());
                     }
                     break;
                 case 4:
                     System.out.println("Enter room number to check availability: ");
                     int roomNumber = input.nextInt();
                     boolean isRoomAvailable = true;
-                    for(int i = 0; i < roomList.size(); i++){
-                        if(roomList.get(i).getRoomNumber() == roomNumber && roomList.get(i).getTenantID() == 0){
-                            isRoomAvailable = true;
-                            break;
-                        } else {
+                    for (Room room : roomList) {
+                        if (room.getRoomNumber() == roomNumber) {
                             isRoomAvailable = false;
+                            break;
                         }
                     }
-                    if(isRoomAvailable){
+                    if (isRoomAvailable) {
                         System.out.println("Room is vacant");
-                    }else{
+                    } else {
                         System.out.println("Room is occupied");
                     }
                     break;
                 case 5:
                     System.out.println("Enter tenant ID to record payment: ");
                     int tenantIDToRecordPayment = input.nextInt();
-                    for(int i = 0; i < tenantList.size(); i++){
-                        if(tenantList.get(i).getTenantID() == tenantIDToRecordPayment){
+                    input.nextLine();
+                    boolean paymentRecorded = false;
+                    for (Tenant t : tenantList) {
+                        if (t.getTenantID() == tenantIDToRecordPayment) {
                             Payment payment = addPayment();
-                            tenantList.get(i).paymentList.add(payment);
+                            t.addPayment(payment);
                             System.out.println("Payment recorded successfully");
+                            paymentRecorded = true;
                             break;
                         }
                     }
-                    break;  
+                    if (!paymentRecorded) {
+                        System.out.println("Tenant not found");
+                    }
+                    break;
                 case 6:
                     System.out.println("Enter tenant ID to display payment history: ");
                     int tenantIDToDisplayPaymentHistory = input.nextInt();
-                    for(int i = 0; i < tenantList.size(); i++){
-                        if(tenantList.get(i).getTenantID() == tenantIDToDisplayPaymentHistory){
-                            for(int j = 0; j < tenantList.get(i).paymentList.size(); j++){
-                                System.out.println("Month: " + tenantList.get(i).paymentList.get(j).getMonth());
-                                System.out.println("Amount: " + tenantList.get(i).paymentList.get(j).getAmount());
-                            }
+                    input.nextLine();
+                    boolean tenantFoundForHistory = false;
+                    for (Tenant t : tenantList) {
+                        if (t.getTenantID() == tenantIDToDisplayPaymentHistory) {
+                            t.displayPaymentHistory();
+                            tenantFoundForHistory = true;
                             break;
                         }
+                    }
+                    if (!tenantFoundForHistory) {
+                        System.out.println("Tenant not found");
                     }
                     break;
                 case 7:
                     System.out.println("Enter tenant ID to calculate total payment: ");
                     int tenantIDToCalculateTotalPayment = input.nextInt();
-                    double totalPayment = 0;
-                    for(int i = 0; i < tenantList.size(); i++){
-                        if(tenantList.get(i).getTenantID() == tenantIDToCalculateTotalPayment){
-                            for(int j = 0; j < tenantList.get(i).paymentList.size(); j++){
-                                totalPayment += tenantList.get(i).paymentList.get(j).getAmount();
-                            }
-                            System.out.println("Total payment: " + totalPayment);
+                    input.nextLine();
+                    boolean tenantFoundForPayment = false;
+                    for (Tenant t : tenantList) {
+                        if (t.getTenantID() == tenantIDToCalculateTotalPayment) {
+                            double totalPayment = t.calculateTotalPayment();  
+                            System.out.println("Total payment for Tenant ID " + tenantIDToCalculateTotalPayment + ": " + totalPayment);
+                            tenantFoundForPayment = true;
                             break;
                         }
+                    }
+                    if (!tenantFoundForPayment) {
+                        System.out.println("Tenant not found");
                     }
                     break;
                 case 8:
                     System.out.println("Enter tenant ID to check payment status: ");
                     int tenantIDToCheckPaymentStatus = input.nextInt();
+                    input.nextLine();
                     System.out.println("Enter month to check payment status: ");
                     String monthToCheckPaymentStatus = input.nextLine();
-                    boolean isPaymentMade = false;
-                    for(int i = 0; i < tenantList.size(); i++){
-                        if(tenantList.get(i).getTenantID() == tenantIDToCheckPaymentStatus){
-                            for(int j = 0; j < tenantList.get(i).paymentList.size(); j++){
-                                if(tenantList.get(i).paymentList.get(j).getMonth().equals(monthToCheckPaymentStatus)){
-                                    isPaymentMade = true;
-                                    break;
-                                }
+                    
+                    boolean tenantFoundForStatus = false;
+                    for (Tenant t : tenantList) {
+                        if (t.getTenantID() == tenantIDToCheckPaymentStatus) {
+                            boolean isPaymentMade = t.hasPaidForMonth(monthToCheckPaymentStatus);  
+                            if (isPaymentMade) {
+                                System.out.println("Payment made for the month of " + monthToCheckPaymentStatus);
+                            } else {
+                                System.out.println("Payment not made for the month of " + monthToCheckPaymentStatus);
                             }
+                            tenantFoundForStatus = true;
                             break;
                         }
                     }
-                    if(isPaymentMade){
-                        System.out.println("Payment made for the month");
-                    }else{
-                        System.out.println("Payment not made for the month");
+                    if (!tenantFoundForStatus) {
+                        System.out.println("Tenant not found");
                     }
                     break;
                 case 9:
                     System.out.println("Enter month to identify tenants with missing payments: ");
                     String monthToIdentifyTenantsWithMissingPayments = input.nextLine();
-                    for(int i = 0; i < tenantList.size(); i++){
-                        boolean isPaymentMadeForMonth = false;
-                        for(int j = 0; j < tenantList.get(i).paymentList.size(); j++){
-                            if(tenantList.get(i).paymentList.get(j).getMonth().equals(monthToIdentifyTenantsWithMissingPayments)){
-                                isPaymentMadeForMonth = true;
-                                break;
-                            }
-                        }
-                        if(!isPaymentMadeForMonth){
-                            System.out.println("Tenant ID: " + tenantList.get(i).getTenantID());
-                            System.out.println("Tenant Name: " + tenantList.get(i).getName());
+                    
+                    boolean anyTenantWithMissingPayments = false;
+                    
+                    for (Tenant t : tenantList) {
+                        if (!t.hasPaidForMonth(monthToIdentifyTenantsWithMissingPayments)) {  
+                            System.out.println("Tenant ID: " + t.getTenantID());
+                            System.out.println("Tenant Name: " + t.getName());
+                            anyTenantWithMissingPayments = true;
                         }
                     }
+                    
+                    if (!anyTenantWithMissingPayments) {
+                        System.out.println("All tenants have made payments for the month of " + monthToIdentifyTenantsWithMissingPayments);
+                    }
                     break;
+            
                 case 10:
                     System.out.println("Exiting...");
                     break;

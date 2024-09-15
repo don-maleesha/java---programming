@@ -1,11 +1,11 @@
 public class Room {
     
     private int roomNumber;
-    private int tenantID;
+    boolean roomStatus = false;
 
-    public Room(int roomNumber, int tenantID) {
+    public Room(int roomNumber) {
         this.roomNumber = roomNumber;
-        this.tenantID = tenantID;
+        
     }
 
     public void setRoomNumber(int roomNumber) {
@@ -16,11 +16,12 @@ public class Room {
         return roomNumber;
     }
 
-    public void setTenantID(int tenantID) {
-        this.tenantID = tenantID;
+    public void setRoomStatus(boolean roomStatus) {
+        this.roomStatus = roomStatus;
     }
 
-    public int getTenantID() {
-        return tenantID;
+    public boolean getStatus(){
+        return roomStatus;
     }
+
 }
