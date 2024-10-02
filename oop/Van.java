@@ -13,4 +13,8 @@ public class Van extends Vehicle{
     void drive(){
         System.out.println("Van is being driven");
     }
+
+    void carryGoods(){
+        System.out.println("Van is carrying goods");
+    }
 }
