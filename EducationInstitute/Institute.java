@@ -86,7 +86,7 @@ public class Institute {
                         System.out.println("Course code: " + course.getCourseCode());
                     }
                     break;
-                case 5:
+                case 5:  
                     for (Student stud : studentList) {
                         System.out.println("Student name: " + stud.getStudentName());
                         System.out.println("Student ID: " + stud.getStudentID());
